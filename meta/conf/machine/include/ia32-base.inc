@@ -10,7 +10,7 @@ MACHINE_FEATURES += "screen keyboard pci usbhost ext2 ext3 x86 \
 
 MACHINE_EXTRA_RRECOMMENDS += "kernel-modules eee-acpi-scripts"
 
-IMAGE_FSTYPES += "ext3 cpio.gz live"
+IMAGE_FSTYPES += "ext3 cpio.gz iso hddimg"
 
 KERNEL_IMAGETYPE ?= "bzImage"
 
