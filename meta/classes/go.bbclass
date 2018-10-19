@@ -28,6 +28,7 @@ export GOPATH_OMIT_IN_ACTIONID ?= "1"
 export GOPTESTBUILDFLAGS ?= "${GOBUILDFLAGS} -c"
 export GOPTESTFLAGS ?= ""
 GOBUILDFLAGS_prepend_task-compile = "${GO_PARALLEL_BUILD} "
+GOBUILDMODE ?= "pie"
 
 export GO = "${HOST_PREFIX}go"
 GOTOOLDIR = "${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go/pkg/tool/${BUILD_GOTUPLE}"
@@ -187,5 +188,5 @@ python() {
     if 'mips' in d.getVar('TARGET_ARCH'):
         d.appendVar('INSANE_SKIP_%s' % d.getVar('PN'), " textrel")
     else:
-        d.appendVar('GOBUILDFLAGS', ' -buildmode=pie')
+        d.appendVar('GOBUILDFLAGS', ' -buildmode=%s' % d.getVar('GOBUILDMODE'))
 }
