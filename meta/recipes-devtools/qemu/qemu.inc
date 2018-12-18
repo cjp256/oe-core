@@ -84,6 +84,8 @@ PACKAGECONFIG_class-native_remove = "${@'kvm' if not os.path.exists('/usr/includ
 PACKAGECONFIG_remove_darwin = "kvm"
 PACKAGECONFIG_remove_mingw32 = "kvm"
 
+AUDIOFLAGS = "${@bb.utils.contains('PACKAGECONFIG', 'pulseaudio','pa', '',d)} ${@bb.utils.contains('PACKAGECONFIG', 'alsa','oss alsa', '', d)}"
+
 PACKAGECONFIG[sdl] = "--enable-sdl --with-sdlabi=2.0,--disable-sdl,libsdl2"
 PACKAGECONFIG[virtfs] = "--enable-virtfs --enable-attr,--disable-virtfs,libcap attr,"
 PACKAGECONFIG[aio] = "--enable-linux-aio,--disable-linux-aio,libaio,"
@@ -102,7 +104,8 @@ PACKAGECONFIG[gcrypt] = "--enable-gcrypt,--disable-gcrypt,libgcrypt,"
 PACKAGECONFIG[nettle] = "--enable-nettle,--disable-nettle,nettle"
 PACKAGECONFIG[libusb] = "--enable-libusb,--disable-libusb,libusb1"
 PACKAGECONFIG[fdt] = "--enable-fdt,--disable-fdt,dtc"
-PACKAGECONFIG[alsa] = "--audio-drv-list='oss alsa',,alsa-lib"
+PACKAGECONFIG[alsa] = "--audio-drv-list="${AUDIOFLAGS}",,alsa-lib"
+PACKAGECONFIG[pulseaudio] = "--audio-drv-list="${AUDIOFLAGS}",,pulseaudio"
 PACKAGECONFIG[glx] = "--enable-opengl,--disable-opengl,mesa"
 PACKAGECONFIG[lzo] = "--enable-lzo,--disable-lzo,lzo"
 PACKAGECONFIG[numa] = "--enable-numa,--disable-numa,numactl"
